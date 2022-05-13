@@ -8,5 +8,7 @@ spring:
     generate-ddl: true
     open-in-view: false
 
-  mustache:
-    expose-request-attributes: true
+  freemarker:
+    expose-request-attributes: true   # свойство, отвечающее за помещение _csrf токенов в контекст шаблонизатора
+
+
