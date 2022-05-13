@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Добавление нового пользователя</title>
+</head>
+<body>
+<h3>Добавление нового пользователя</h3>
+
+{{#message}}
+    {{message}}
+{{/message}}
+
+<form action="/registration" method="post">
+    <div><label>Имя: <input type="text" name="username"/></label></div>
+    <div><label>Пароль: <input type="password" name="password"/></label></div>
+    <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+    <div><input type="submit" value="ЗАРЕГИСТРИРОВАТЬ"/></div>
+</form>
+
+</body>
+</html>

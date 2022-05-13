@@ -8,4 +8,5 @@ spring:
     generate-ddl: true
     open-in-view: false
 
-
+  mustache:
+    expose-request-attributes: true
