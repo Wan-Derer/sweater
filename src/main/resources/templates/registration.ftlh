@@ -3,8 +3,8 @@
 
 <@common.page>
     <h3>Добавление нового пользователя</h3>
-    ${message}
-    <@login.login("/registration")/>
+    ${message!}
+    <@login.login "/registration"/>
 </@common.page>
 
 

@@ -12,3 +12,7 @@ spring:
     expose-request-attributes: true   # свойство, отвечающее за помещение _csrf токенов в контекст шаблонизатора
 
 
+upload:
+  path: /tmp/Tect/uploads
+
+
