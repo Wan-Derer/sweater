@@ -3,6 +3,5 @@
 
 <@common.page>
 <h3>Вход в систему</h3>
-<@login.login "/login" />
-<a href="/registration">Регистрация нового пользователя</a>
+<@login.login "/login" false/>
 </@common.page>

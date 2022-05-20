@@ -1,9 +1,8 @@
 <#import "parts/common.ftlh" as common>
 
 <@common.page>
-<h2>Приветствие</h2>
-<div>Привет!</div>
-<a href="/main">Главная</a>
+    <h5>Привет, гость</h5>
+    <div>Это простой клон Твиттера</div>
 </@common.page>
 
 
