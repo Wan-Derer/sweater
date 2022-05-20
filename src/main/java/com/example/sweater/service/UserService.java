@@ -1,5 +1,7 @@
 package com.example.sweater.service;
 
+import com.example.sweater.domain.Role;
+import com.example.sweater.domain.User;
 import com.example.sweater.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,14 +9,54 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
 
   private final UserRepository userRepo;
+  private final MailSenderService mailSenderService;
 
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     return userRepo.findByUsername(username);
   }
+
+  public boolean addUser(User user) {
+    User userToAdd = userRepo.findByUsername(user.getUsername());
+
+    if (userToAdd != null) {
+      return false;
+    }
+
+    user.setActive(true);
+    user.setRoles(Collections.singleton(Role.USER));
+    user.setActivationCode(UUID.randomUUID().toString());
+
+    userRepo.save(user);
+
+    if (user.getEmail() != null && !user.getEmail().isEmpty()) {
+      String message = String.format("Привет, %s! \n" +
+          "Добро пожаловать на Sweater. Пожалуйста, пройди на http://localhost:8080/activate/%s",
+        user.getUsername(), user.getActivationCode());
+
+      mailSenderService.send(user.getEmail(), "Код активации", message);
+    }
+
+    return true;
+  }
+
+
+  public boolean activateUser(String code) {
+    User user = userRepo.findByActivationCode(code);
+    if (user == null) return false;
+
+    user.setActivationCode(null);
+    userRepo.save(user);
+
+    return true;
+  }
+
 }

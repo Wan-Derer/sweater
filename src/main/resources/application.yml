@@ -1,9 +1,10 @@
 
+#    https://www.baeldung.com/spring-properties-file-outside-jar
+
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost/sweater
-    username: postgres
-    password: 123456
+  config:
+    import: file:config/mailConfig.yml, file:config/dbConfig.yml
+
   jpa:
     generate-ddl: true
     open-in-view: false
