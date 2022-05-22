@@ -6,8 +6,9 @@ spring:
     import: file:config/mailConfig.yml, file:config/dbConfig.yml
 
   jpa:
-    generate-ddl: true
+    generate-ddl: false
     open-in-view: false
+
 
   freemarker:
     expose-request-attributes: true   # свойство, отвечающее за помещение _csrf токенов в контекст шаблонизатора

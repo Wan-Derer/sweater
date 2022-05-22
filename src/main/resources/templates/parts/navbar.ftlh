@@ -22,10 +22,15 @@
                         <a class="nav-link active" aria-current="page" href="/user">Участники</a>
                     </li>
                 </#if>
+                <#if user??>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/user/profile">Учётная запись</a>
+                    </li>
+                </#if>
             </ul>
 
             <div class="navbar-text me-3">${name}</div>
-            <#if name != "unknown"><@login.logout/></#if>
+            <#if name != ""><@login.logout/></#if>
         </div>
     </div>
 

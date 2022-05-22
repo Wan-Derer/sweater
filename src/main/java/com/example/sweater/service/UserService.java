@@ -9,8 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +37,12 @@ public class UserService implements UserDetailsService {
 
     userRepo.save(user);
 
+    sendMessage(user);
+
+    return true;
+  }
+
+  private void sendMessage(User user) {
     if (user.getEmail() != null && !user.getEmail().isEmpty()) {
       String message = String.format("Привет, %s! \n" +
           "Добро пожаловать на Sweater. Пожалуйста, пройди на http://localhost:8080/activate/%s",
@@ -44,8 +50,6 @@ public class UserService implements UserDetailsService {
 
       mailSenderService.send(user.getEmail(), "Код активации", message);
     }
-
-    return true;
   }
 
 
@@ -59,4 +63,45 @@ public class UserService implements UserDetailsService {
     return true;
   }
 
+  public List<User> findAll() {
+    return userRepo.findAll();
+  }
+
+  public void saveUser(User user, String username, Map<String, String> form) {
+
+    user.setUsername(username);
+
+    final Set<String> roles = Arrays.stream(Role.values()).map(Role::name).collect(Collectors.toSet());
+
+    user.getRoles().clear();
+
+    user.getRoles().addAll(
+      form.keySet().stream()
+        .filter(roles::contains)
+        .map(Role::valueOf)
+        .collect(Collectors.toSet())
+    );
+
+    userRepo.save(user);
+
+  }
+
+
+  public void updateProfile(User user, String newPassword, String newEmail) {
+    String currEmail = user.getEmail();
+    boolean isEmailChanged =
+      (newEmail != null && !newEmail.equals(currEmail)) || (currEmail != null && !currEmail.equals(newEmail));
+
+    if (isEmailChanged) {
+      user.setEmail(newEmail);
+      if (newEmail != null && !newEmail.isEmpty()) user.setActivationCode(UUID.randomUUID().toString());
+    }
+
+    if (newPassword != null && !newPassword.isEmpty()) user.setPassword(newPassword);
+
+    userRepo.save(user);
+
+    if (isEmailChanged) sendMessage(user);
+
+  }
 }
