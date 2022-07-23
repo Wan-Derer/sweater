@@ -1,0 +1,18 @@
+https://freemarker.apache.org/docs/dgui.html    Freemarker, шаблонизатор
+
+https://getbootstrap.com    Bootstrap
+
+==========
+Spring Boot: интеграционное тестирование с Spring Testing:
+https://www.youtube.com/watch?v=Lnc3o8cCwZY&list=PLU2ftbIeotGpAYRP9Iv2KLIwK36-o_qYk&index=27
+
+Официальный гайд Spring по тестированию вэб слоя: https://spring.io/guides/gs/testing-web/
+Документация Spring по тестированию: https://docs.spring.io/spring-framework/docs/current/reference/html/testing.html
+
+
+
+
+
+
+
+

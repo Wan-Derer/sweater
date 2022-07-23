@@ -1,0 +1,30 @@
+spring:
+  config:
+    import: file:config/mailConfig.yml
+
+  datasource:
+    url: jdbc:postgresql://localhost/sweatertest
+    username: test
+    password: test
+
+  jpa:
+    generate-ddl: false
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+
+
+  freemarker:
+    expose-request-attributes: true   # свойство, отвечающее за помещение _csrf токенов в контекст шаблонизатора
+
+
+upload:
+  path: /tmp/Test/uploads
+
+

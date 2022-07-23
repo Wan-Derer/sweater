@@ -6,7 +6,7 @@
             <form method="get" action="/main" class="form-inline">
                 <label>Фильтр:
                     <input type="text" name="filter" class="form-control" placeholder="фильтр по тэгу"
-                           value="${filter!}">
+                           value="${filter!}" />
                 </label>
                 <button type="submit" class="btn btn-primary ms-2">НАЙТИ</button>
             </form>
@@ -40,7 +40,7 @@
                 </#if>
                 <div class="form-group mb-3">
                     <div class="custom-file">
-                        <input type="file" name="file" id="customFile">
+                        <input type="file" name="file" id="customFile" />
                         <#--                    <label class="custom-file-label" for="customFile">Выберите файл</label>-->
                     </div>
                 </div>
@@ -52,12 +52,12 @@
 
     <div><h3>Сообщения</h3></div>
 
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="message-list">
         <#list messages as message>
             <div class="col">
-                <div class="card">
+                <div class="card my-3" data-id="${message.id}">
                     <#if message.filename??>
-                        <img class="card-img-top" src="/img/${message.filename}">
+                        <img class="card-img-top" src="/img/${message.filename}" />
                     </#if>
                     <div class="m-2">
                         <span>${message.text}</span>
